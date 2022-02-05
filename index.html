@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursive Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <script type="module">
+        import Sentence from "../js/Calculator.js";
+        import MemoryManager from "../js/MemoryManager.js";
+
+        const userInput = window.prompt("Digite a equacao ou 'A' para ajuda");
+        const capture = new Sentence(userInput);
+        console.log(capture);
+
+        //Check if parenthesis is balanced
+        capture.isBalanced();
+
+        //Check if sign exists and operand begin with parenthesis
+        capture.checkParOperands();
+
+        //Store user command
+        const userCommand = capture.parseCommand(userInput);
+        // console.log(userCommand)
+
+        capture.functions(userCommand);
+
+
+        
+        
+                
+
+    </script>
+</body>
+</html>

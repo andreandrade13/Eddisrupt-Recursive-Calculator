@@ -1,0 +1,134 @@
+// Specifications
+// https://docs.google.com/document/d/1AzVu_8zMSuRpCOtLuzQDqrwehDlljRzuAV3xdBh7zB8/edit
+
+/*
+
+ - Calculadora com memorias
+ - Calculadora tem no maximo duas memorias, cada memoria eh identificada por um nome e tambem cada memoria guarda um valor real de grande precisao
+ - Realiza operacoes unarias e binarias com valores inteiros e reais
+ - Unarias: valor absoluto(abs), seno(sin), co-seno(cos), numero de Euler
+ 'e' elevado a potencia do argumento(exp), logaritmo de base 'e'(log), 
+ arredondamento simples(round), arredondamento para inteiro superior(ceil)
+ e o arredondamento para inteiro inferior(floor).
+ - Binarias: soma, subtracao, multiplicacao, divisao
+ -  NAO calcula expressoes de valor sem siginificado (divisao por zero, por ex)
+ - Os calculos podem envolver expressoes complexas:
+    1. Um valor real; 
+    2. Um nome de uma memória da calculadora; 
+    3. Um operador unário seguido de uma expressão entre parentesis; 
+    4. Um operador binário seguido de duas expressões, cada uma entre parentesis. 
+ - Expressoes simples: 1 + 1
+
+ - Inicio do programa: ciclo continuo de inputs atraves do ***prompt***
+ - Fim do ciclo de input: inserir comando de termino do programa
+ - Interacao eh feita atraves de comandos:
+    VM - Consultar o valor da memoria 
+    LM - Indicar o nome das memorias 
+    CE - Calcular o valor duma expressao 
+    AVM - Atribuir ultimo valor calculado a uma memoria 
+    A - Ajuda 
+    AM - Alocar Memória
+    S – Sair 
+ - Interpretador nao deve fazer disitincao de lower e upper case
+ - Caso insira comando diferente da lista acima, retornar Opcao inexistente
+
+ - Comando S: Termina a execucao do programa, retorna 'Aplicacao terminada. Ate a proxima.'
+ - Comando A: informa a lista de comandos. Retorna a lista.
+ - Comando VM: informa sobre o valor de memoria dada. Retorna o argumento e valor, caso exista: primeira: 30.05 || Memoria nao existente
+ - Comando LM: informa sobre as memorias da calculadora (nao precisa de argumentos). Retorna primeira: 30.05; segunda: 0.00 || Calculadora sem memorias.
+ - Comando CE: Calcula o valor da expressao dada
+ - Comando AVM: Atribui o último valor calculado à memória dada. 
+ - Comando AM: Cria uma memória com um nome
+*/
+
+
+CE 2 2 +
+
+/*
+Recursive Calculator
+
+ - Has two memories
+ - Begins asking inputs from the user, using prompt.
+    - Test tool can insert each input (?)
+ - The inputs ends when user insert the end finish comand
+ *Tip: read about string and array manipulation
+ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
+  - After inputs, program shows (write in console) the commands
+      VM - Consultar o valor da memoria 
+      LM - Indicar o nome das memorias 
+      CE - Calcular o valor duma expressao 
+      AVM - Atribuir ultimo valor calculado a uma memoria 
+      A - Ajuda 
+      AM - Alocar Memória
+      S – Sair 
+ - The command must be accepted in upper/lower/mixed cases
+ - If command doesnt exist, show "Opcao inexistente."
+
+Command Details:
+   S – Sair: Dont need args. User only wirte S and text in console must be "Aplicacao terminada. Ate a proxima.". This command always succed and ends application
+   A - Ajuda: Dont need args, and return the list of commands
+   VM - Consultar o valor da memoria: Needs arg (name of memory - e.g. VM first) and must return "first: 30.05". If doesnt exist, return "Memoria nao existente."
+   LM - Indicar o nome das memorias: Dont need args. Return memory values "first: 10; second: 0". If is empty, return "Calculadora sem memorias."
+   CE - Calcular o valor duma expressao: Needs arg.
+      Simple case: return value of constant -> CE 3.14159 (first) return 3.14. If is wrong, return Expressao mal definida. 
+   AVM - Atribuir ultimo valor calculado a uma memoria: Needs arg (memory name). If don exist, return "Memoria nao existente."
+   AM - Alocar Memória: create memory with name "AM Primeira" and return "memoria criada com o nome: Primeira"
+
+
+Breakdown - Small problems
+
+Ask input for user - only one time
+Validate if input is a number
+Make it case insensitive - Ok
+Command A - Ok
+Command S - Ok
+Innexistent command - Ok
+
+
+//ter o programa em modulos facilita o contexto
+Recursive Calculator (Codigo modularizado)
+ I.Calculation engine 
+   i.parser (Modulo)
+   ii.evaluator (Modulo)
+   iii.single pass (Modulo)
+
+ II.Memory Manager
+   i. 1 variavel para cada memoria (no maximo 2)
+   ii. CRUD
+      Create: AM
+      Read: VM/LM
+      Update: AVM
+      Delete: N/A
+
+      
+
+      parser.parse("VM primeira")???
+      memoryManager.parse("VM primeira")???
+      "VM primeira"
+      memoryManager.read("primeira")
+      "AVM primeira"
+      memoryManager.update("primeira")
+      "AM primeira"
+      memoryManager.create("primeira")
+      memoryManager.update("primeira", 10)
+      memoryManager.read("primeira") // 10.00
+
+      Todos os comandos devem informar o nome da memoria,
+      com excecao do LM (Listar Memorias)
+
+      AM: se criar memoria homonima, o programa deve retornar um aviso
+      e nao gravar.
+
+      AVM: caso nao tenha nenhum valor calculador, AVM recebe zero
+
+      
+
+ III.Interface Web
+   i.prompts (para os testes)
+   ii.interface grafica (calculadora grafica)
+   iii.output
+
+
+
+
